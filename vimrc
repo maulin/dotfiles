@@ -125,7 +125,7 @@ vnoremap s :!sort<CR>
 nnoremap ,, <C-^>
 
 " run the test on current line
-nnoremap <leader>t :execute "!bundle exec rspec %:" . line(".")<cr>
+nnoremap <leader>r :execute "!bundle exec rspec %:" . line(".")<cr>
 
 "  goto method definition
 map gm <C-]>
@@ -189,7 +189,7 @@ function! MapCR()
 endfunction
 call MapCR()
 nnoremap <leader>T :call RunNearestTest()<cr>
-nnoremap <leader>a :call RunTests('')<cr>
+"nnoremap <leader>a :call RunTests('')<cr>
 
 function! RunTestFile(...)
     if a:0
