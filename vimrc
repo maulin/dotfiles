@@ -74,6 +74,9 @@ hi ColorColumn ctermbg=235 guibg=#2c2d27
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
 """""""""""""""""""""""""
 " Keybindings
 """""""""""""""""""""""""
