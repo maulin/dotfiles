@@ -127,9 +127,6 @@ vnoremap s :!sort<CR>
 " go to previous file in buffer
 nnoremap ,, <C-^>
 
-" run the test on current line
-nnoremap <leader>r :execute "!bundle exec rspec %:" . line(".")<cr>
-
 "  goto method definition
 map gm <C-]>
 
@@ -191,8 +188,11 @@ function! MapCR()
   nnoremap <cr> :call RunTestFile()<cr>
 endfunction
 call MapCR()
-nnoremap <leader>T :call RunNearestTest()<cr>
+nnoremap <leader>r :call RunNearestTest()<cr>
 "nnoremap <leader>a :call RunTests('')<cr>
+" run the test on current line
+" nnoremap <leader>r :execute "!bundle exec rspec %:" . line(".")<cr>
+
 
 function! RunTestFile(...)
     if a:0
@@ -225,35 +225,20 @@ function! SetTestFile(command_suffix)
 endfunction
 
 function! RunTests(filename)
+    let test_runner = system('pgrep -fl test_commands.sh')
+
+    if !test_runner
+      exec ":silent !tmux split-window -p 30 './.test_commands.sh'"
+    end
+
     " Write the file and run tests for the given filename
     if expand("%") != ""
       :w
     end
-    " The file is executable; assume we should run
-    if executable(a:filename)
-      exec ":!./" . a:filename
-    " Project-specific test script
-    elseif filereadable("script/test")
-        exec ":!script/test " . a:filename
-    " Fall back to the .test-commands pipe if available, assuming someone
-    " is reading the other side and running the commands
-    elseif filewritable(".test-commands")
-      let cmd = 'rspec --color --format progress --require "~/lib/vim_rspec_formatter" --format VimFormatter --out tmp/quickfix'
-      exec ":!echo " . cmd . " " . a:filename . " > .test-commands"
 
-      " Write an empty string to block until the command completes
-      sleep 100m " milliseconds
-      :!echo > .test-commands
-      redraw!
-    " Fall back to a blocking test run with Bundler
-    elseif filereadable("bin/rspec")
-      exec ":!bin/rspec --color " . a:filename
-    elseif filereadable("Gemfile") && strlen(glob("spec/**/*.rb"))
-      exec ":!bundle exec rspec --color " . a:filename
-    elseif filereadable("Gemfile") && strlen(glob("test/**/*.rb"))
-      exec ":!bin/rails test " . a:filename
-    " If we see python-looking tests, assume they should be run with Nose
-    elseif strlen(glob("test/**/*.py") . glob("tests/**/*.py"))
-      exec "!nosetests " . a:filename
-    end
+    let cmd = 'bundle exec rspec'
+    exec ":silent !echo 'echo running tests...' > .test_commands"
+    exec ":silent !echo " . cmd . " " . a:filename . " > .test_commands"
+
+    redraw!
 endfunction

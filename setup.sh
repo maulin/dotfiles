@@ -8,7 +8,7 @@ fi
 
 cwd=`pwd`
 echo "creating symlinks"
-for file in vimrc tmux.conf zshrc aliasrc; do
+for file in vimrc tmux.conf zshrc aliasrc test_commands.sh; do
   echo " * $file"
   ln -sf $cwd/$file $HOME/.$file
 done
