@@ -228,7 +228,7 @@ function! RunTests(filename)
     let test_runner = system('pgrep -fl test_commands.sh')
 
     if !test_runner
-      exec ":silent !tmux split-window -p 30 './.test_commands.sh'"
+      exec ":silent !tmux split-window -p 30 '~/.test_commands.sh'"
     end
 
     " Write the file and run tests for the given filename
