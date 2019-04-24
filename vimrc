@@ -237,8 +237,8 @@ function! RunTests(filename)
     end
 
     let cmd = 'bundle exec rspec'
-    exec ":silent !echo 'echo running tests...' > .test_commands"
-    exec ":silent !echo " . cmd . " " . a:filename . " > .test_commands"
+    exec ":silent !echo 'echo running tests...' > ~/.test_commands"
+    exec ":silent !echo " . cmd . " " . a:filename . " > ~/.test_commands"
 
     redraw!
 endfunction
