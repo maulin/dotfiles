@@ -5,35 +5,32 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " general editing
-Plug 'cakebaker/scss-syntax.vim' " scss
 Plug 'ervandew/supertab' "tab completion
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } "fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' "finder vim bindings
-Plug 'junegunn/vim-xmark', { 'do': 'make' } " markdown
-Plug 'leafgarland/typescript-vim' " typescript
-Plug 'nviennot/molokai' "colors
+Plug 'joshdick/onedark.vim' "colors
 Plug 'scrooloose/nerdcommenter' "easy commenting
 Plug 'scrooloose/nerdtree' "filesystem explorer
 Plug 'tpope/vim-endwise' "end blocks
 Plug 'tpope/vim-fugitive'  "git
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " ruby
-Plug 'tpope/vim-repeat'  "repeat custom commands
 Plug 'vim-airline/vim-airline' "status bar
-Plug 'Xuyuanp/nerdtree-git-plugin' "git status for NERDTree
 
 call plug#end()
 
 " Display options
-colorscheme molokai
+colorscheme onedark
 
 filetype plugin indent on
 syntax on
-set shell=/usr/bin/zsh
+set shell=/bin/zsh
 set t_Co=256
 set number
 set nowrap
 set lazyredraw
 set nocursorline
+set rnu
+set tags=tags
 
 runtime macros/matchit.vim
 
@@ -66,9 +63,12 @@ map <space> :nohlsearch<cr>
 
 set wildmenu
 set wildmode=list:longest,full
+"whithout this scrolling in a large typescript file would cause vim to hog the
+"cpu. Not sure why explicitly setting the regex engine fixes it.
+set re=2
 
-" Show me where 80 chars is
-set colorcolumn=80
+" Show me where 120 chars is
+set colorcolumn=120
 hi ColorColumn ctermbg=235 guibg=#2c2d27
 
 " Treat <li> and <p> tags like the block tags they are
@@ -76,6 +76,7 @@ let g:html_indent_tags = 'li\|p'
 
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
+let NERDTreeShowHidden=1
 
 """""""""""""""""""""""""
 " Keybindings
@@ -103,16 +104,21 @@ nnoremap <S-h> gT
 noremap k gk
 noremap j gj
 nnoremap <leader>pi :source ~/.vimrc<cr>:PlugInstall<cr>
+nnoremap <leader>sv :source ~/.vimrc<cr>
 
 " json
 nnoremap <silent> <leader>jj :%!python -m json.tool<cr>
 
 " fzf shortcuts
 let g:fzf_history_dir = '~/.local/share/fzf-history'
-nnoremap <silent> <leader>f :Files<cr>
+nnoremap <silent> <leader>ff :Files<cr>
 nnoremap <silent> <Leader>h :History<cr>
 
 nnoremap <Leader>a :Ag<cr>
+" nnoremap <leader>a <Esc>:cd app/sections/Shipping<CR><Esc>:Ag<cr>
+nnoremap <Leader>fd :FZF components/delivery<cr>
+nnoremap <Leader>fs :FZF app/sections/Shipping<cr>
+nnoremap <Leader>fl :FZF app/sections/ShippingLabels<cr>
 
 " open netrw
 nnoremap <silent> <Leader>v :Vexplore<cr>
@@ -126,9 +132,6 @@ vnoremap s :!sort<CR>
 
 " go to previous file in buffer
 nnoremap ,, <C-^>
-
-"  goto method definition
-map gm <C-]>
 
 function! RenameFile()
   let old_name = expand('%')
@@ -191,7 +194,7 @@ call MapCR()
 nnoremap <leader>r :call RunNearestTest()<cr>
 "nnoremap <leader>a :call RunTests('')<cr>
 " run the test on current line
-" nnoremap <leader>r :execute "!bundle exec rspec %:" . line(".")<cr>
+" nnoremap <leader>r :execute "!rails test %:" . line(".")<cr>
 
 
 function! RunTestFile(...)
@@ -202,7 +205,7 @@ function! RunTestFile(...)
     endif
 
     " Are we in a test file?
-    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|test_.*\.py\|_test.py\)$') != -1
+    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\)$') != -1
 
     " Run the tests for the previously-marked file (or the current file if
     " it's a test).
@@ -236,7 +239,7 @@ function! RunTests(filename)
       :w
     end
 
-    let cmd = 'bundle exec rspec'
+    let cmd = './bin/test'
     exec ":silent !echo 'echo running tests...' > ~/.test_commands"
     exec ":silent !echo " . cmd . " " . a:filename . " > ~/.test_commands"
 
