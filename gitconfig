@@ -5,12 +5,12 @@ protocol = https
 helper = /opt/boxen/bin/boxen-git-credential
 
 [core]
-editor = vim
-excludesfile = /opt/boxen/config/git/gitignore
+editor = nvim
+excludesfile = ~/.gitignore_global
 
 [user]
-name = Your Name
-email = Your Email
+name = Maulin Pathare
+email = maulin.pathare@shopify.com
 
 [push]
 default = simple
@@ -30,13 +30,6 @@ ls = ls-files
 
 [branch]
 autosetuprebase = always
-
-[core]
-editor = vim
-excludesfile = /opt/boxen/config/git/gitignore
-
-[hub]
-protocol = https
 
 [push]
 default = simple
