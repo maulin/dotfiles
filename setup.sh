@@ -3,7 +3,7 @@
 if [ SPIN ]; then
   sudo apt purge neovim
   sudo add-apt-repository -y ppa:neovim-ppa/stable
-  sudo apt update
+  sudo apt update && sudo apt-get install -y neovim
 fi
 
 if [ ! -e ~/.vim/autoload/plug.vim ]; then
@@ -19,5 +19,5 @@ for file in vimrc tmux.conf zshrc test_commands.sh gitignore_global; do
   ln -sf $cwd/$file $HOME/.$file
 done
 
-mkdir -p $HOME/.conig/nvim
+mkdir -p $HOME/.config/nvim
 ln -sf $cwd/init.vim $HOME/.config/nvim/init.vim
