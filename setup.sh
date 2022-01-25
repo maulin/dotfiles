@@ -9,7 +9,7 @@ fi
 if [ "$SPIN" ]; then
   sudo apt purge neovim
   sudo add-apt-repository -y ppa:neovim-ppa/stable
-  sudo apt update && sudo apt-get install -y neovim
+  sudo apt update && sudo apt-get install -y neovim silversearcher-ag
   npm install -g typescript typescript-language-server
 fi
 
@@ -29,4 +29,3 @@ ln -sf $cwd/init.vim $HOME/.config/nvim/init.vim
 if [ ! -d "~/.oh-my-zsh/" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
-

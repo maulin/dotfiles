@@ -255,7 +255,7 @@ function! RunTestFile(...)
     endif
 
     " Are we in a test file?
-    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\)$') != -1
+    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|\.test.tsx\)$') != -1
 
     " Run the tests for the previously-marked file (or the current file if
     " it's a test).
@@ -289,9 +289,19 @@ function! RunTests(filename)
       :w
     end
 
-    " let cmd = './bin/test'
-    let cmd = './bin/rspec'
-    exec ":silent !echo 'echo running tests...' > ~/.test_commands"
+    let project = fnamemodify("%", ":p:h:t")
+    exec ":silent !echo 'echo project: '" . project . " > ~/.test_commands"
+    let cmd = 'NO_COMMAND'
+
+    if project == "web"
+      let cmd = 'npm run test --no-watch --no-graphql'
+    elseif project == "shopify"
+      let cmd = './bin/test'
+    else
+      let cmd = './bin/rspec'
+    endif
+
+    exec ":silent !echo 'echo running tests with: '" . cmd . " > ~/.test_commands"
     exec ":silent !echo " . cmd . " " . a:filename . " > ~/.test_commands"
 
     redraw!
