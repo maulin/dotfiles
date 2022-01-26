@@ -18,7 +18,7 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 
 cwd=`pwd`
 echo "creating symlinks"
-for file in vimrc tmux.conf zshrc test_commands.sh gitignore_global; do
+for file in vimrc tmux.conf zshrc test_commands.sh gitignore_global gitconfig; do
   echo " * $file"
   ln -sf $cwd/$file $HOME/.$file
 done
