@@ -11,6 +11,10 @@ if [ "$SPIN" ]; then
   sudo add-apt-repository -y ppa:neovim-ppa/stable
   sudo apt update && sudo apt-get install -y neovim silversearcher-ag
   npm install -g typescript typescript-language-server
+
+  function update-all() {
+    for i in */.git; do ( echo $i; cd $i/..; git pull; update; ); done
+  }
 fi
 
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \

@@ -16,6 +16,7 @@ Plug 'tpope/vim-fugitive'  "git
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " ruby
 Plug 'vim-airline/vim-airline' "status bar
 Plug 'neovim/nvim-lspconfig' "nvim language server
+Plug 'maulin/spin-hud' "plugin for Spin
 call plug#end()
 
 "lsp stuff
