@@ -256,7 +256,7 @@ function! RunTestFile(...)
     endif
 
     " Are we in a test file?
-    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|\.test.tsx\)$') != -1
+    let in_test_file = match(expand("%"), '\(_spec.rb\|_test.rb\|\.test.tsx\|\.test.ts\)$') != -1
 
     " Run the tests for the previously-marked file (or the current file if
     " it's a test).
