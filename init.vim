@@ -184,6 +184,9 @@ vnoremap s :!sort<CR>
 " go to previous file in buffer
 nnoremap ,, <C-^>
 
+" copy full path to clipboard
+nnoremap <Leader>p :silent !echo -n % \| pbcopy<cr>
+
 function! RenameFile()
   let old_name = expand('%')
   let new_name = input('New file name: ', expand('%'), 'file')
