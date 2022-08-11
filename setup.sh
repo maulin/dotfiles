@@ -7,9 +7,7 @@ if [ ! -e ~/.vim/autoload/plug.vim ]; then
 fi
 
 if [ "$SPIN" ]; then
-  sudo apt purge neovim
-  sudo add-apt-repository -y ppa:neovim-ppa/stable
-  sudo apt update && sudo apt-get install -y neovim silversearcher-ag
+  sudo apt update && sudo apt-get install -y silversearcher-ag
   npm install -g typescript typescript-language-server
 
   function update-all() {
