@@ -7,12 +7,8 @@ if [ ! -e ~/.vim/autoload/plug.vim ]; then
 fi
 
 if [ "$SPIN" ]; then
-  sudo apt update && sudo apt-get install -y silversearcher-ag
   npm install -g typescript typescript-language-server
-
-  function update-all() {
-    for i in */.git; do ( echo $i; cd $i/..; git pull; update; ); done
-  }
+  gem install --user-install sorbet
 fi
 
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
@@ -30,4 +26,8 @@ ln -sf $cwd/init.vim $HOME/.config/nvim/init.vim
 
 if [ ! -d "~/.oh-my-zsh/" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
+
+if [ "$SPIN" ]; then
+  export PATH=`gem environment | awk '/USER INSTALLATION DIRECTORY:/ {print $5}'`/bin:$PATH
 fi

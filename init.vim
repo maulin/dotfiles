@@ -58,15 +58,18 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { 'tsserver' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    }
+nvim_lsp['tsserver'].setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
   }
-end
+}
+
+nvim_lsp['sorbet'].setup {
+  on_attach = on_attach,
+  command = { 'srb', 'tc', '--lsp' },
+  filetypes = { 'ruby' },
+}
 EOF
 
 " Display options
