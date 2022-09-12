@@ -188,7 +188,7 @@ vnoremap s :!sort<CR>
 nnoremap ,, <C-^>
 
 " copy full path to clipboard
-nnoremap <Leader>p :silent !echo -n % \| pbcopy<cr>
+nnoremap <Leader>t :silent !echo -n % \| pbcopy<cr>
 
 function! RenameFile()
   let old_name = expand('%')
