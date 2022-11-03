@@ -15,14 +15,15 @@ Plug 'tpope/vim-endwise' "end blocks
 Plug 'tpope/vim-fugitive'  "git
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " ruby
 Plug 'vim-airline/vim-airline' "status bar
-Plug 'neovim/nvim-lspconfig' "nvim language server
 Plug 'shopify/spin-hud' "plugin for Spin
+Plug 'shopify/shadowenv.vim' "shadowenv plugin for Spin
+Plug 'williamboman/mason.nvim'
+Plug 'neovim/nvim-lspconfig' "nvim language server
+Plug 'williamboman/mason-lspconfig.nvim'
 call plug#end()
 
 "lsp stuff
 lua << EOF
-local nvim_lsp = require('lspconfig')
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -56,20 +57,24 @@ local on_attach = function(client, bufnr)
 
 end
 
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
-nvim_lsp['tsserver'].setup {
-  on_attach = on_attach,
-  flags = {
-    debounce_text_changes = 150,
-  }
+local servers = {
+  'tsserver'
 }
 
-nvim_lsp['sorbet'].setup {
-  on_attach = on_attach,
-  command = { 'srb', 'tc', '--lsp' },
-  filetypes = { 'ruby' },
+local mason_lspconfig = require('mason-lspconfig')
+require('mason').setup {}
+mason_lspconfig.setup {
+  ensure_installed = servers,
+  automatic_install = true
 }
+
+local lspconfig = require('lspconfig')
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+for _, server in ipairs(mason_lspconfig.get_installed_servers()) do
+  lspconfig[server].setup {
+    on_attach = on_attach,
+  }
+end
 EOF
 
 " Display options
