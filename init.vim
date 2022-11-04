@@ -61,6 +61,12 @@ local servers = {
   'tsserver'
 }
 
+vim.diagnostic.config({
+  virtual_text = false,
+  signs = true,
+  float = { border = "single" },
+})
+
 local mason_lspconfig = require('mason-lspconfig')
 require('mason').setup {}
 mason_lspconfig.setup {
@@ -250,7 +256,7 @@ endif
 "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MapCR()
-  nnoremap <cr> :call RunTestFile()<cr>
+  nnoremap <leader><cr> :call RunTestFile()<cr>
 endfunction
 call MapCR()
 nnoremap <leader>r :call RunNearestTest()<cr>
