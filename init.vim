@@ -58,7 +58,8 @@ local on_attach = function(client, bufnr)
 end
 
 local servers = {
-  'tsserver'
+  'tsserver',
+  'sorbet'
 }
 
 vim.diagnostic.config({
