@@ -22,3 +22,5 @@ ln -sf $cwd/init.vim $HOME/.config/nvim/init.vim
 if [ ! -d "~/.oh-my-zsh/" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 fi
+
+nvim +PlugInstall +qall
