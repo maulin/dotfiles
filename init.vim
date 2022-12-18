@@ -8,11 +8,12 @@ call plug#begin('~/.vim/plugged')
 Plug 'ervandew/supertab' "tab completion
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' "finder vim bindings
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 Plug 'scrooloose/nerdcommenter' "easy commenting
 Plug 'scrooloose/nerdtree' "filesystem explorer
 Plug 'tpope/vim-endwise' "end blocks
 Plug 'tpope/vim-fugitive'  "git
+Plug 'tpope/vim-rhubarb'  "hub
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " ruby
 Plug 'vim-airline/vim-airline' "status bar
 Plug 'shopify/spin-hud' "plugin for Spin
@@ -85,7 +86,7 @@ end
 EOF
 
 " Display options
-colorscheme PaperColor
+colorscheme gruvbox
 
 filetype plugin indent on
 syntax on
@@ -201,6 +202,13 @@ nnoremap ,, <C-^>
 
 " copy full path to clipboard
 nnoremap <Leader>t :silent !echo -n % \| pbcopy<cr>
+
+" git
+nnoremap <Leader>ga :Git add .<cr>
+nnoremap <Leader>gc :Git commit<cr>
+nnoremap <Leader>gm :Git commit --amend<cr>
+nnoremap <Leader>gb :GBrowse<cr>
+nnoremap <Leader>gf :Git fetch<cr>
 
 function! RenameFile()
   let old_name = expand('%')
