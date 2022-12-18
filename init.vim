@@ -8,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'ervandew/supertab' "tab completion
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' "finder vim bindings
-Plug 'joshdick/onedark.vim' "colors
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'scrooloose/nerdcommenter' "easy commenting
 Plug 'scrooloose/nerdtree' "filesystem explorer
 Plug 'tpope/vim-endwise' "end blocks
@@ -85,7 +85,7 @@ end
 EOF
 
 " Display options
-colorscheme onedark
+colorscheme PaperColor
 
 filetype plugin indent on
 syntax on
