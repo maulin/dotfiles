@@ -16,8 +16,6 @@ Plug 'tpope/vim-fugitive'  "git
 Plug 'tpope/vim-rhubarb'  "hub
 Plug 'tpope/vim-rails', { 'for': 'ruby' } " ruby
 Plug 'vim-airline/vim-airline' "status bar
-Plug 'shopify/spin-hud' "plugin for Spin
-Plug 'shopify/shadowenv.vim' "shadowenv plugin for Spin
 Plug 'williamboman/mason.nvim'
 Plug 'neovim/nvim-lspconfig' "nvim language server
 Plug 'williamboman/mason-lspconfig.nvim'

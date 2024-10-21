@@ -1,16 +1,13 @@
 [hub]
   protocol = https
 
-[credential]
-  helper = /opt/boxen/bin/boxen-git-credential
-
 [core]
   editor = nvim
   excludesfile = ~/.gitignore_global
 
 [user]
   name = Maulin Pathare
-  email = maulin.pathare@shopify.com
+  email = maulin@hey.com
 
 [push]
   default = simple
@@ -38,7 +35,6 @@
   color = auto
 
 [color "diff"]
-  excludesfile = /opt/boxen/config/git/gitignore
   frag = magenta bold
   meta = yellow bold
   new = green bold
