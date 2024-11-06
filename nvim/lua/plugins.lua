@@ -19,11 +19,18 @@ vim.g.maplocalleader = ','
 
 require('lazy').setup(
   {
+    {
+      'tpope/vim-fugitive',
+      dependencies = {
+        { 'tpope/vim-rhubarb' },
+      }
+    },
     {'preservim/nerdtree'},
     {'folke/tokyonight.nvim'},
     {'VonHeikemen/lsp-zero.nvim'},
     {'neovim/nvim-lspconfig'},
-    {'hrsh7th/nvim-cmp',
+    {
+      'hrsh7th/nvim-cmp',
       dependencies = {
         { 'saadparwaiz1/cmp_luasnip' },
         {'hrsh7th/cmp-nvim-lsp'},

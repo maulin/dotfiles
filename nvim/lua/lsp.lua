@@ -25,41 +25,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-    vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, '<Space>=', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
+    vim.keymap.set('n', '<Space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
   end,
 })
 
-require('lspconfig').ruby_lsp.setup({})
-
-local cmp = require('cmp')
-local luasnip = require('luasnip')
-local cmp_action = require('lsp-zero').cmp_action()
-local cmp_format = require('lsp-zero').cmp_format({details = true})
-
-luasnip.filetype_extend("ruby", {"rails"})
-require('luasnip.loaders.from_vscode').lazy_load()
-
-cmp.setup({
-  window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+require('lspconfig').ruby_lsp.setup({
+  init_options = {
+    formatter = 'standard',
+    linters = { 'standard' },
   },
-  sources = {
-    {name = 'nvim_lsp'},
-    {name = 'luasnip'},
-    {name = 'buffer'},
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
-  }),
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  formatting = cmp_format,
-  mapping = cmp.mapping.preset.insert({}),
 })
