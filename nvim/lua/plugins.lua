@@ -27,7 +27,6 @@ require('lazy').setup(
     },
     {'preservim/nerdtree'},
     {'folke/tokyonight.nvim'},
-    {'VonHeikemen/lsp-zero.nvim'},
     {'neovim/nvim-lspconfig'},
     {
       'hrsh7th/nvim-cmp',
