@@ -1,3 +1,23 @@
+local _border = "single"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = _border
+  }
+)
+
+vim.diagnostic.config{
+  signs = true,
+  virtual_text = false,
+  float={border=_border},
+}
+--
 -- Reserve a space in the gutter
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
@@ -25,14 +45,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
     vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
     vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-    vim.keymap.set({'n', 'x'}, '<Space>=', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
     vim.keymap.set('n', '<Space>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+    vim.keymap.set('n', '<Space>e', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
+    vim.keymap.set({'n', 'x'}, '<Space>ff', '<cmd> lua vim.lsp.buf.format()<cr>', opts)
   end,
 })
 
-require('lspconfig').ruby_lsp.setup({
-  init_options = {
-    formatter = 'standard',
-    linters = { 'standard' },
-  },
-})
+require('lspconfig').ruby_lsp.setup({})

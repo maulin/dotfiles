@@ -38,9 +38,12 @@ vim.keymap.set('n', '<C-f>', ':NERDTreeFind<cr>')
 vim.keymap.set('v', 's', ':sort!<cr>')
 vim.keymap.set('n', ',,', '<C-^>')
 
--- set a mark and come back to it after J so the cursor doesn't move
+-- Set a mark and come back to it after J so the cursor doesn't move
 vim.keymap.set('n', 'J', 'mzJ`z')
 
--- move lines that are visually selected
+-- Move lines that are visually selected
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Indent current buffer
+vim.keymap.set('n', '<Space>fi', 'mmgg=G`m', opts)
