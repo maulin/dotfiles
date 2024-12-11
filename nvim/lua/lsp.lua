@@ -52,3 +52,4 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 require('lspconfig').ruby_lsp.setup({})
+require('lspconfig').sorbet.setup({})
