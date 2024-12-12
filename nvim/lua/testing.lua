@@ -11,11 +11,16 @@ vim.api.nvim_create_autocmd("WinClosed", {
 
 local function open_terminal_split()
   if (terminal_chan == nil) then
-    vim.cmd('botright terminal')
+    local total_lines = vim.api.nvim_win_get_height(0)
+    local terminal_height = math.floor(total_lines * 30 / 100)
+    vim.cmd('botright ' .. terminal_height .. 'split | terminal')
 
-    vim.bo[0].modifiable = false
-    vim.wo.number = false
+    local bufnr = vim.api.nvim_get_current_buf()
     terminal_chan = vim.bo.channel
+
+    vim.bo[bufnr].modifiable = false
+    vim.wo.number = false
+    vim.wo.relativenumber = false
   end
 end
 
@@ -39,5 +44,6 @@ local function run_current_test_file()
   vim.api.nvim_chan_send(terminal_chan, command)
 end
 
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', '<CR>', open_terminal_split)
 vim.keymap.set('n', '<leader>t', run_current_test_file)
