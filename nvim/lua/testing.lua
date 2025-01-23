@@ -67,7 +67,10 @@ vim.keymap.set('n', '<leader>t', run_current_test_file)
 -- Create a keymap for Enter key to open terminal split, excluding quickfix windows and NERDTree
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    if vim.bo.buftype ~= 'quickfix' and vim.bo.filetype ~= 'nerdtree' then
+    local buftype_is_not_quickfix = vim.bo.buftype ~= 'quickfix'
+    local filetype_is_not_nerdtree = vim.bo.filetype ~= 'nerdtree'
+
+    if buftype_is_not_quickfix and filetype_is_not_nerdtree then
       vim.keymap.set('n', '<CR>', open_terminal_split, { buffer = true })
     end
   end,
