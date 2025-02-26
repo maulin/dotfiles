@@ -33,3 +33,6 @@ vim.opt.smartcase = true            -- but make it case sensitive if an uppercas
 
 -- Display extra whitespace
 vim.opt.listchars = { tab = '»·', trail = '·', nbsp = '·' }
+
+-- NERDTree
+vim.g.NERDTreeShowHidden = 1

@@ -47,3 +47,9 @@ vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
 -- Indent current buffer
 vim.keymap.set('n', '<Space>fi', 'mmgg=G`m', opts)
+
+-- Remove trailing whitespace when a buffer is written
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  command = "%s/\\s\\+$//e"
+})

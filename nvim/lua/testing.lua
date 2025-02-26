@@ -47,7 +47,11 @@ local function run_current_test_file()
   local is_test_file = string.match(filename, ".+_test%.rb") or
     string.match(filename, ".+_test%.ts") or
     string.match(filename, ".+_test%.js")
-  local command = "dev test " .. path .. "\n"
+  local test_command = "rails test " .. path .. "\n"
+  -- Check if "dev" command is available
+  if vim.fn.executable("dev") == 1 then
+    test_command = "dev test " .. path .. "\n"
+  end
   local current_window = vim.api.nvim_get_current_win()
 
   open_terminal_split()
@@ -59,19 +63,14 @@ local function run_current_test_file()
     return
   end
 
-  vim.api.nvim_chan_send(chan, command)
+  vim.api.nvim_chan_send(chan, test_command)
 end
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
-vim.keymap.set('n', '<leader>t', run_current_test_file)
--- Create a keymap for Enter key to open terminal split, excluding quickfix windows and NERDTree
+vim.keymap.set('n', '<leader>tt', run_current_test_file)
+-- Create a keymap for Enter key to open terminal split
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    local buftype_is_not_quickfix = vim.bo.buftype ~= 'quickfix'
-    local filetype_is_not_nerdtree = vim.bo.filetype ~= 'nerdtree'
-
-    if buftype_is_not_quickfix and filetype_is_not_nerdtree then
-      vim.keymap.set('n', '<CR>', open_terminal_split, { buffer = true })
-    end
+    vim.keymap.set('n', '<leader>t', open_terminal_split, { buffer = true })
   end,
 })
