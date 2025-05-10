@@ -53,3 +53,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require('lspconfig').ruby_lsp.setup({})
 require('lspconfig').sorbet.setup({})
+require'lspconfig'.rubocop.setup({})
+require('lspconfig').tsserver.setup {
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+}

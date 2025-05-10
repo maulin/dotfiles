@@ -21,7 +21,6 @@ local function open_terminal_split()
     vim.wo.number = false
     vim.wo.relativenumber = false
   else
-    -- Check if terminal buffer is visible in the current tab
     local win_found = false
     for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
       if vim.api.nvim_win_get_buf(win) == terminal_bufnr then
@@ -31,7 +30,6 @@ local function open_terminal_split()
       end
     end
 
-    -- Open a split if the terminal buffer is not visible
     if not win_found then
       local total_lines = vim.api.nvim_win_get_height(0)
       local terminal_height = math.floor(total_lines * 30 / 100)
@@ -48,7 +46,7 @@ local function run_current_test_file()
     string.match(filename, ".+_test%.ts") or
     string.match(filename, ".+_test%.js")
   local test_command = "rails test " .. path .. "\n"
-  -- Check if "dev" command is available
+
   if vim.fn.executable("dev") == 1 then
     test_command = "dev test " .. path .. "\n"
   end
@@ -68,9 +66,9 @@ end
 
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', '<leader>tt', run_current_test_file)
--- Create a keymap for Enter key to open terminal split
+
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    vim.keymap.set('n', '<leader>t', open_terminal_split, { buffer = true })
+    vim.keymap.set('n', '<leader>te', open_terminal_split, { buffer = true })
   end,
 })

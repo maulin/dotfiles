@@ -23,11 +23,12 @@ vim.keymap.set('n', '<Right>', '3<C-w><')
 -- Telescope
 
 local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = 'Telescope grep string' })
-vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', telescope.oldfiles, { desc = 'Telescope history' })
+vim.keymap.set('n', '<leader>ff', telescope.find_files, { desc = 'find files' })
+vim.keymap.set('n', '<leader>fg', telescope.live_grep, { desc = 'live grep' })
+vim.keymap.set('n', '<leader>fw', telescope.grep_string, { desc = 'grep string' })
+vim.keymap.set('n', '<leader>fb', telescope.buffers, { desc = 'find buffers' })
+vim.keymap.set('n', '<leader>fh', telescope.oldfiles, { desc = 'find history' })
+vim.keymap.set('n', '<leader>fd', telescope.diagnostics, { desc = 'find diagnostics' })
 
 -- NerdTree
 
