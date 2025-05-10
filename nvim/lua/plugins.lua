@@ -45,11 +45,11 @@ require('lazy').setup(
     {
       'nvim-treesitter/nvim-treesitter',
       build = ':TSUpdate',
-      config = function () 
+      config = function ()
         local configs = require('nvim-treesitter.configs')
 
         configs.setup({
-          ensure_installed = { 
+          ensure_installed = {
             'html',
             'javascript',
             'json',
@@ -65,9 +65,9 @@ require('lazy').setup(
           auto_install = true,
           highlight = {
             enable = true,
-            additional_vim_regex_highlighting = false,
+            additional_vim_regex_highlighting = { 'ruby' },
           },
-          indent = { enable = true },  
+          indent = { enable = true, disable = { 'ruby' } },
         })
       end
     },
